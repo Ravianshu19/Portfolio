@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Ravi Anshu — Data Scientist & AI/ML Engineer. Building intelligent systems at the intersection of data, machine learning, and real-world impact."/>
+<title>Ravi Anshu — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #181818;
+    --accent: #c8f560;
+    --accent2: #5ce1e6;
+    --text: #f0ede6;
+    --muted: #888;
+    --border: rgba(255,255,255,0.08);
+    --card-border: rgba(255,255,255,0.06);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+  nav.scrolled { padding: 0.8rem 4rem; }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--accent); }
+
+  /* Hamburger (mobile) */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--muted);
+    transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(200,245,96,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(200,245,96,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-dot {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,245,96,0.12) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .hero-dot2 {
+    position: absolute;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(92,225,230,0.08) 0%, transparent 70%);
+    bottom: 100px; left: 20%;
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.6s 0.35s forwards;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-desc {
+    max-width: 560px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(240,237,230,0.65);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    opacity: 0; animation: fadeUp 0.6s 0.5s forwards;
+  }
+  .hero-tags {
+    display: flex; gap: 0.75rem; flex-wrap: wrap;
+    margin-bottom: 3rem;
+    opacity: 0; animation: fadeUp 0.6s 0.65s forwards;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    color: var(--muted);
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; align-items: center;
+    opacity: 0; animation: fadeUp 0.6s 0.8s forwards;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0a0a;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-ghost {
+    color: var(--muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 0.4rem;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--text); }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: center; gap: 0;
+  }
+  .stat-item {
+    padding: 2rem 4rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 3.5rem;
+  }
+
+  /* PROJECTS GRID */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .project-card {
+    background: var(--bg);
+    padding: 2.5rem;
+    transition: background 0.25s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card:hover { background: var(--bg2); }
+  .project-card.featured {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    margin-bottom: 1.5rem;
+  }
+  .project-type {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid rgba(200,245,96,0.3);
+    color: var(--accent);
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+  }
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+  .project-desc {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: rgba(240,237,230,0.55);
+    margin-bottom: 1.5rem;
+  }
+  .project-stack {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+  }
+  .stack-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    background: var(--bg3);
+    color: var(--muted);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--accent2);
+    text-decoration: none;
+    margin-top: 1.25rem;
+    letter-spacing: 0.04em;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 0.65rem; }
+
+  /* SKILLS SECTION */
+  #skills { background: var(--bg2); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .skill-group {
+    background: var(--bg2);
+    padding: 2rem;
+  }
+  .skill-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 1.2rem;
+    color: var(--text);
+  }
+  .skill-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .skill-list li {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .skill-list li::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .about-avatar {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .avatar-initials {
+    font-family: 'Syne', sans-serif;
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--accent);
+    opacity: 0.3;
+  }
+  .about-meta p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .about-meta strong {
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 400;
+    font-family: 'DM Sans', sans-serif;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: rgba(240,237,230,0.7);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+  .about-text p:last-of-type { margin-bottom: 0; }
+
+  /* CONTACT */
+  #contact { background: var(--bg2); }
+  #contact .section-title { margin-bottom: 1rem; }
+  .contact-intro {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(240,237,230,0.6);
+    max-width: 520px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .contact-links-col { display: flex; flex-direction: column; gap: 1.5rem; }
+  .contact-link-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .contact-link-item:hover { border-color: rgba(200,245,96,0.3); background: rgba(200,245,96,0.04); }
+  .contact-link-icon {
+    width: 36px; height: 36px;
+    background: var(--bg3);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-link-icon svg { width: 16px; height: 16px; }
+  .contact-link-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.2rem;
+  }
+  .contact-link-value { font-size: 0.9rem; color: var(--text); }
+
+  /* CONTACT FORM */
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: rgba(200,245,96,0.4); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-group select option { background: var(--bg3); }
+  .form-submit-row { display: flex; align-items: center; gap: 1.5rem; margin-top: 0.5rem; }
+  .form-status {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+  }
+  .form-status.success { color: var(--accent); }
+  .form-status.error { color: #ff6b6b; }
+  .form-status.sending { color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--bg);
+  }
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav.scrolled { padding: 0.8rem 1.5rem; }
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,10,0.97);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      z-index: 99;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 1.1rem; }
+    .hamburger { display: flex; z-index: 101; }
+    .hero { padding: 0 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+    .stats-bar { flex-wrap: wrap; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--border); flex: 1 1 50%; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-logo">RA</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-dot"></div>
+  <div class="hero-dot2"></div>
+
+  <div class="hero-eyebrow">Data Scientist &amp; AI/ML Engineer</div>
+  <h1 class="hero-name">Ravi<br><span>Anshu.</span></h1>
+  <p class="hero-desc">
+    Building intelligent systems at the intersection of data, machine learning, and real-world impact.
+    From LLM-powered agents to dynamic pricing models — I turn data into decisions.
+  </p>
+  <div class="hero-tags">
+    <span class="tag">Python</span>
+    <span class="tag">LLMs</span>
+    <span class="tag">Data Science</span>
+    <span class="tag">Agentic AI</span>
+    <span class="tag">GANs</span>
+    <span class="tag">LangChain</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="https://github.com/Ravianshu19" target="_blank" class="btn-ghost">GitHub →</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar reveal">
+  <div class="stat-item">
+    <span class="stat-num">5+</span>
+    <span class="stat-label">Repositories</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">15+</span>
+    <span class="stat-label">Projects Built</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">2</span>
+    <span class="stat-label">Core Domains</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">100%</span>
+    <span class="stat-label">Jupyter Native</span>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">// Selected work</div>
+  <h2 class="section-title">Projects &amp; Research</h2>
+
+  <div class="projects-grid">
+
+    <!-- Featured -->
+    <div class="project-card featured reveal">
+      <div>
+        <div class="project-num">01 — Featured</div>
+        <div class="project-type">AI / LLM</div>
+        <h3 class="project-title">Advanced LLM Projects Collection</h3>
+        <p class="project-desc">
+          A showcase of cutting-edge LLM applications — from agentic AI systems that reason and plan autonomously,
+          to end-to-end chatbot pipelines, code generation models, and generative AI experiments using Hugging Face,
+          LangChain, and OpenAI APIs.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">OpenAI</span>
+          <span class="stack-tag">LangChain</span>
+          <span class="stack-tag">Hugging Face</span>
+          <span class="stack-tag">Streamlit</span>
+          <span class="stack-tag">Python</span>
+        </div>
+        <a href="https://github.com/Ravianshu19/AI-ML" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div>
+        <div style="background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 2rem; height: 100%; min-height: 260px;">
+          <div style="font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--accent); margin-bottom: 1.2rem; letter-spacing: 0.1em;">NOTEBOOKS INSIDE</div>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; color: rgba(240,237,230,0.6);">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0;"></span>Agentic AI — Reasoning &amp; Planning
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; color: rgba(240,237,230,0.6);">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0;"></span>Code Generation with LLMs
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; color: rgba(240,237,230,0.6);">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0;"></span>End-to-End Chatbot Pipeline
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; color: rgba(240,237,230,0.6);">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0;"></span>Generative AI Model
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; color: rgba(240,237,230,0.6);">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); flex-shrink: 0;"></span>Synthetic Medical Records (GANs)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">02</div>
+      <div class="project-type">Data Science</div>
+      <h3 class="project-title">Dynamic Pricing Strategy</h3>
+      <p class="project-desc">ML-based pricing experiments and A/B testing to maximize revenue, using regression and demand-response modeling.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">scikit-learn</span>
+        <span class="stack-tag">pandas</span>
+      </div>
+      <a href="https://github.com/Ravianshu19/Data-Science" target="_blank" class="project-link">View Repo →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">03</div>
+      <div class="project-type">Data Science</div>
+      <h3 class="project-title">EV Market Size Analysis</h3>
+      <p class="project-desc">Market sizing, adoption forecasting, and trend analysis for the electric vehicle industry using real-world datasets.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Jupyter</span>
+        <span class="stack-tag">matplotlib</span>
+        <span class="stack-tag">pandas</span>
+      </div>
+      <a href="https://github.com/Ravianshu19/Data-Science" target="_blank" class="project-link">View Repo →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">04</div>
+      <div class="project-type">Analytics</div>
+      <h3 class="project-title">Metro Operations Optimization</h3>
+      <p class="project-desc">Applied optimization techniques to real-world Delhi Metro (DMRC) GTFS transit data for scheduling and efficiency improvements.</p>
+      <div class="project-stack">
+        <span class="stack-tag">GTFS</span>
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Optimization</span>
+      </div>
+      <a href="https://github.com/Ravianshu19/Data-Science" target="_blank" class="project-link">View Repo →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">05</div>
+      <div class="project-type">Analytics</div>
+      <h3 class="project-title">Inflation Impact Analysis</h3>
+      <p class="project-desc">How inflation rates shape economic indicators and consumer response — with USD/INR exchange rate modeling from 1980–2024.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Time Series</span>
+        <span class="stack-tag">pandas</span>
+        <span class="stack-tag">matplotlib</span>
+      </div>
+      <a href="https://github.com/Ravianshu19/Data-Science" target="_blank" class="project-link">View Repo →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">06</div>
+      <div class="project-type">Web / Full Stack</div>
+      <h3 class="project-title">SIH Project</h3>
+      <p class="project-desc">A JavaScript-based project built for Smart India Hackathon — combining frontend development with data-driven features.</p>
+      <div class="project-stack">
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">Web</span>
+      </div>
+      <a href="https://github.com/Ravianshu19/SIH" target="_blank" class="project-link">View Repo →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">// Capabilities</div>
+  <h2 class="section-title">Skills &amp; Stack</h2>
+
+  <div class="skills-grid reveal">
+    <div class="skill-group">
+      <div class="skill-group-title">AI / ML</div>
+      <ul class="skill-list">
+        <li>Large Language Models</li>
+        <li>Agentic AI Systems</li>
+        <li>GANs</li>
+        <li>NLP / Transformers</li>
+        <li>Generative AI</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Data Science</div>
+      <ul class="skill-list">
+        <li>Exploratory Data Analysis</li>
+        <li>ML Pipelines</li>
+        <li>Time Series Forecasting</li>
+        <li>Price Elasticity Modeling</li>
+        <li>User Behaviour Analysis</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Tools &amp; Frameworks</div>
+      <ul class="skill-list">
+        <li>LangChain</li>
+        <li>OpenAI / Hugging Face</li>
+        <li>scikit-learn</li>
+        <li>pandas / NumPy</li>
+        <li>Streamlit / Gradio</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Languages</div>
+      <ul class="skill-list">
+        <li>Python</li>
+        <li>JavaScript</li>
+        <li>TypeScript</li>
+        <li>SQL</li>
+        <li>Jupyter Notebooks</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">// Who I am</div>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid reveal">
+    <div class="about-left">
+      <div class="about-avatar">
+        <div class="avatar-initials">RA</div>
+      </div>
+      <div class="about-meta">
+        <p>GitHub</p>
+        <strong>github.com/Ravianshu19</strong>
+        <p>Focus</p>
+        <strong>AI/ML &amp; Data Science</strong>
+        <p>Repos</p>
+        <strong>5 Public Repositories</strong>
+      </div>
+    </div>
+    <div class="about-text">
+      <p>
+        I'm Ravi Anshu, a passionate data scientist and AI/ML engineer who loves turning complex data into actionable insights.
+        My work sits at the intersection of machine learning, statistical modeling, and applied AI — with a particular interest in
+        large language models and agentic systems.
+      </p>
+      <p>
+        My Data Science portfolio spans 15+ projects covering everything from metro transit optimization and EV market sizing
+        to dynamic pricing strategies and inflation impact analysis. Each project is a story told through data.
+      </p>
+      <p>
+        On the AI/ML side, I've explored the frontier of LLMs — building autonomous agents, end-to-end chatbots, code generation
+        pipelines, and synthetic medical record generation using GANs. I'm always chasing the next interesting problem.
+      </p>
+      <a href="https://github.com/Ravianshu19" target="_blank" class="btn-primary" style="display: inline-block; margin-top: 1.5rem;">View All Projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">// Get in touch</div>
+  <h2 class="section-title">Let's Build<br>Something Great.</h2>
+  <p class="contact-intro">
+    Open to collaborations, research projects, and full-time opportunities in data science, AI, and ML engineering.
+  </p>
+
+  <div class="contact-layout reveal">
+    <div class="contact-links-col">
+      <a href="https://github.com/Ravianshu19" target="_blank" class="contact-link-item">
+        <div class="contact-link-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--muted)">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="contact-link-label">GitHub</div>
+          <div class="contact-link-value">github.com/Ravianshu19</div>
+        </div>
+      </a>
+      <a href="mailto:ravianshu19@gmail.com" class="contact-link-item">
+        <div class="contact-link-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)">
+            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="contact-link-label">Email</div>
+          <div class="contact-link-value">ravianshu19@gmail.com</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Contact Form -->
+    <form class="contact-form" id="contactForm" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <select id="subject" name="subject">
+          <option value="collaboration">Collaboration</option>
+          <option value="research">Research Project</option>
+          <option value="job">Job Opportunity</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell me about your project or opportunity..." required></textarea>
+      </div>
+      <div class="form-submit-row">
+        <button type="submit" class="btn-primary" id="submitBtn">Send Message</button>
+        <span class="form-status" id="formStatus"></span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Ravi Anshu — Portfolio</p>
+  <p>Built with data &amp; craft</p>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id], div.stats-bar');
+  const navAnchors = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id || '';
+    });
+    navAnchors.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+
+  // Contact form submission
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formStatus = document.getElementById('formStatus');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    if (!name || !email || !message) {
+      formStatus.textContent = 'Please fill in all required fields.';
+      formStatus.className = 'form-status error';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    formStatus.textContent = 'Sending…';
+    formStatus.className = 'form-status sending';
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          subject: document.getElementById('subject').value,
+          message
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        formStatus.textContent = '✓ Message sent! I'll get back to you soon.';
+        formStatus.className = 'form-status success';
+        form.reset();
+      } else {
+        throw new Error(data.error || 'Failed to send');
+      }
+    } catch (err) {
+      formStatus.textContent = '✗ ' + (err.message || 'Something went wrong. Try emailing directly.');
+      formStatus.className = 'form-status error';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Message';
+    }
+  });
+</script>
+
+</body>
+</html>
